@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { usePuterStore } from "~/lib/puter";
+import { useLocation,useNavigate } from "react-router";
 import { json } from "stream/consumers";
 import type { Route } from "./+types/home";
 import Navbar from "~/components/Navbar";
@@ -12,6 +15,18 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export default function Home() {
+  
+  const { auth } = usePuterStore();
+  const navigate = useNavigate();
+  console.log(navigate,"color: #8ab4f8;" );
+  
+  useEffect(()=>{
+    if(auth.isAuthenticated){
+      navigate('/auth?next=/');
+    }
+
+  },[auth.isAuthenticated])
+  
   return <main className={"bg-[url('images/bg-main.svg')] bg-cover"}>
     <Navbar />
     <section className="main-section">
