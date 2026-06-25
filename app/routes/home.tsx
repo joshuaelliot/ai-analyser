@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { usePuterStore } from "~/lib/puter";
 import { useLocation,useNavigate } from "react-router";
-import { json } from "stream/consumers";
 import type { Route } from "./+types/home";
 import Navbar from "~/components/Navbar";
 import { resumes } from "../../constants";
@@ -16,16 +15,23 @@ export function meta({ }: Route.MetaArgs) {
 
 export default function Home() {
   
-  const { auth } = usePuterStore();
+const isAuthenticated = usePuterStore((state) => state.auth.isAuthenticated);  
+const isLoading = usePuterStore((state) => state.isLoading);
+console.log('esto es auth : ');
+
   const navigate = useNavigate();
-  console.log(navigate,"color: #8ab4f8;" );
+ 
   
   useEffect(()=>{
-    if(auth.isAuthenticated){
+
+    if(isLoading) return;
+    console.log("%c esto es effet", "color: #8ab4f8;");
+//           ↑ %c indica que el siguiente argumento es CS
+    if(!isAuthenticated){
       navigate('/auth?next=/');
     }
 
-  },[auth.isAuthenticated])
+  },[isAuthenticated,isLoading])
   
   return <main className={"bg-[url('images/bg-main.svg')] bg-cover"}>
     <Navbar />
@@ -38,7 +44,7 @@ export default function Home() {
       resumes.length > 0 && (
         <div className="resumes-section">
           {resumes.map((resume) => (
-            <ResumeCard resume={resume} />
+            <ResumeCard key={resume.id} resume={resume} />
           ))}
         </div>
       )

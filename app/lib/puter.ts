@@ -116,8 +116,8 @@ export const usePuterStore = create<PuterStore>((set, get) => {
     });
   };
 
-  window.puter.ai.chat("pollito");
-  
+  //window.puter.ai.chat("pollito");
+
   const checkAuthStatus = async (): Promise<boolean> => {
     const puter = getPuter();
     if (!puter) {

@@ -1,3 +1,4 @@
+
 import {
   isRouteErrorResponse,
   Links,
@@ -30,8 +31,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const {init} = usePuterStore();
 
   useEffect(()=>{
-   // init();
-  },[init])
+    init();
+  },[])
   return (
     <html lang="en">
       <head>

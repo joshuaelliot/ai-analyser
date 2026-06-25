@@ -12,8 +12,7 @@ export default function auth() {
   const location = useLocation();
   const next = location.search.split('next=')[1];
   const navigate = useNavigate();
-  console.log(next,"color: #8ab4f8;" );
-  
+
   useEffect(()=>{
     if(auth.isAuthenticated){
       navigate(next);
